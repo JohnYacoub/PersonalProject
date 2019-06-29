@@ -30,7 +30,7 @@ const addCharacter = (payload)=>{
 const deleteCharacter = id =>{
     const config = {
         method:'DELETE',
-        url:`${url}/${id}`,
+        url:`${url}${id}`,
         withCredintails:true,
         crossDomain:true
     }

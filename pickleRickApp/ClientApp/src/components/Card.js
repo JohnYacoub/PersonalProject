@@ -1,6 +1,10 @@
 import React from 'react';
 const Card = props => {
-    console.log('my props',props)
+    
+const handleDelete =()=>{
+  props.delete(props.Characters.id)
+}
+
   return (
     <div className="bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
       <div
@@ -39,8 +43,8 @@ const Card = props => {
         <div>
           <span>LAST LOCATION</span><p>{props.Characters.location.name}</p>
         </div>
-        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black">Modify</button>
-        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black">Delete</button>
+        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-gold">Modify</button>
+        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-red" onClick={handleDelete}>Delete</button>
       </div>
     </div>
   );

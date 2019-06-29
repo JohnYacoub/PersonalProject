@@ -8,18 +8,18 @@ import 'tachyons';
 
 
 const Particle = {
-  polygon: {
+
     particles: {
         shape: {
             type: 'images',
             images: [
-                {src: 'path/to/first/image.svg', height: 20, width: 20},
-                {src: 'path/to/second/image.jpg', height: 20, width: 20},
+                {src: 'img/rick-and-morty-folder-logo.png', height: 50, width: 50},
+                {src: 'img/rick-and-morty-folder-logo.png', height: 50, width: 50},
             ]
         }
     }
 }
-}
+
 
 export default class App extends Component {
   static displayName = App.name;
