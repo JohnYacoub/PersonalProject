@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import Particles from 'react-particles-js';
 import Characters from './components/Characters'
 import './App.css';
+import 'tachyons';
 
 
 const Particle = {

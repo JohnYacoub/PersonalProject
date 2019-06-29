@@ -2,45 +2,47 @@ import React from 'react';
 const Card = props => {
     console.log('my props',props)
   return (
-    <article className="characterCard__Wrapper-sc-1ejywvi-0 lkWhZH">
+    <div className="bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
       <div
-        data="card header"
-        className="characterCard__ImgWrapper-sc-1ejywvi-1 eUyUcB"
+
       >
-        <div className="card-image">
+        <div >
           <img
             src={props.Characters.image}
+            style={{width:"200px",height:"200px"}}
             alt="Riq IV"
+            className="ba"
           />
 
-        </div><div className="characterCard__Title-sc-1ejywvi-3 dfWCUu">
-          <h2 className="characterCard__Name-sc-1ejywvi-4 ieUvkm">{props.Characters.name}</h2>
-          <p className="characterCard__Description-sc-1ejywvi-5 dSyDU">
+        </div><div >
+          <h2 >{props.Characters.name}</h2>
+          <p >
             {props.Characters.id}
           </p>
         </div>
       </div>
-      <div
+      <div className="tc"
         data="card info"
-        className="characterCard__InfoWrapper-sc-1ejywvi-2 XgbIp"
       >
-        <div className="characterCard__TextWrapper-sc-1ejywvi-6 kYFLaT">
+        <div>
           <span>STATUS</span><p>{props.Characters.status}</p>
         </div>
-        <div className="characterCard__TextWrapper-sc-1ejywvi-6 kYFLaT">
+        <div>
           <span>SPECIES</span><p>{props.Characters.species}</p>
         </div>
-        <div className="characterCard__TextWrapper-sc-1ejywvi-6 kYFLaT">
+        <div >
           <span>GENDER</span><p>{props.Characters.gender}</p>
         </div>
-        <div className="characterCard__TextWrapper-sc-1ejywvi-6 kYFLaT">
+        <div >
           <span>ORIGIN</span><p>{props.Characters.origin.name}</p>
         </div>
-        <div className="characterCard__TextWrapper-sc-1ejywvi-6 jCIRLJ">
+        <div>
           <span>LAST LOCATION</span><p>{props.Characters.location.name}</p>
         </div>
+        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black">Modify</button>
+        <button className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black">Delete</button>
       </div>
-    </article>
+    </div>
   );
 };
 

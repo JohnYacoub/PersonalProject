@@ -20,8 +20,8 @@ class Characters extends Component {
     this.setState (() => {
       return {
         info: resp.info,
-        results: resp.results,
-        resultsComp: resp.results.map (this.mapList),
+        results: resp,
+        resultsComp: resp.map (this.mapList),
       };
     }, console.log (resp));
   };
@@ -31,9 +31,7 @@ class Characters extends Component {
   };
 
   render () {
-    return (
-<div>{this.state.resultsComp}</div>
-    );
+    return <div>{this.state.resultsComp}</div>;
   }
 }
 
