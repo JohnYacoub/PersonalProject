@@ -6,12 +6,10 @@ import swal from 'sweetalert';
 
 class Characters extends Component {
   state = {
-    info: '',
-    infoComp: '',
     results: '',
     resultsComp: '',
     searchField: '',
-    test: '',
+    toggle: false,
   };
 
   componentDidMount () {
@@ -31,7 +29,16 @@ class Characters extends Component {
   };
 
   mapList = item => {
-    return <Card Characters={item} key={item.id} delete={this.deleteChar} />;
+    return (
+      <Card
+        Characters={item}
+        key={item.id}
+        delete={this.deleteChar}
+        toggle={this.state.toggle}
+        onIputChange={this.onIputChange}
+        selectedProfile={this.state.selectedProfile}
+      />
+    );
   };
 
   deleteChar = id => {
@@ -67,23 +74,43 @@ class Characters extends Component {
   };
 
   onSearchChange = e => {
-    this.setState ({searchField: e.target.value});
-    const filterChar = this.state.results.filter (
-      char => {
-        return char.name
-          .toLowerCase ()
-          .includes (this.state.searchField.toLowerCase ());
-      },
-      () => {
-        this.setState ({resultsComp: filterChar});
-      }
-    );
+    this.setState ({searchField: e.target.value}, () => {
+      const filterChar = this.state.results.filter (
+        char => {
+          return char.name
+            .toLowerCase ()
+            .includes (this.state.searchField.toLowerCase ());
+        }
+      );
+      this.setState (prevState => {
+        return {
+          ...prevState,
+          resultsComp: filterChar.map (this.mapList),
+        };
+      });
+    });
   };
+
+  onIputChange = e => {
+    let id = e.target.id;
+    let resultsCopy = [...this.state.results];
+    let index = resultsCopy.findIndex (item => item.id === Number (id));
+    resultsCopy[index].origin = e.target.value;
+    this.setState (prevState => {
+      return {
+        ...prevState,
+        results: resultsCopy,
+        resultsComp: resultsCopy.map (this.mapList),
+      };
+    });
+  };
+  addCharacter = () => {};
 
   render () {
     return (
       <div>
         <h1>LoopUp Character</h1>
+        <button onClick={this.addCharacter} className="pa3 ba b--green bg-lightest-blue">Add your own Rick!</button>
         <SearchBox searchField={this.onSearchChange} />
         {this.state.resultsComp}
       </div>

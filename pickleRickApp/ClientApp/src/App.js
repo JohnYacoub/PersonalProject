@@ -16,7 +16,14 @@ const Particle = {
                 {src: 'img/rick-and-morty-folder-logo.png', height: 50, width: 50},
                 {src: 'img/rick-and-morty-folder-logo.png', height: 50, width: 50},
             ]
-        }
+        },
+        bubble: {
+          "distance": 800,
+          "size": 80,
+          "duration": 2,
+          "opacity": 0.8,
+          "speed": 3
+        },
     }
 }
 
