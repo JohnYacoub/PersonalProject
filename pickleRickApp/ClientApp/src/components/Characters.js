@@ -9,7 +9,7 @@ class Characters extends Component {
     results: '',
     resultsComp: '',
     searchField: '',
-    toggle: false,
+    toggle: 0,
   };
 
   componentDidMount () {
@@ -36,7 +36,9 @@ class Characters extends Component {
         delete={this.deleteChar}
         toggle={this.state.toggle}
         onIputChange={this.onIputChange}
-        selectedProfile={this.state.selectedProfile}
+        handelUpdate={this.handelUpdate}
+        handelModify={this.handelModify}
+        match={this.props.match}
       />
     );
   };
@@ -75,13 +77,11 @@ class Characters extends Component {
 
   onSearchChange = e => {
     this.setState ({searchField: e.target.value}, () => {
-      const filterChar = this.state.results.filter (
-        char => {
-          return char.name
-            .toLowerCase ()
-            .includes (this.state.searchField.toLowerCase ());
-        }
-      );
+      const filterChar = this.state.results.filter (char => {
+        return char.name
+          .toLowerCase ()
+          .includes (this.state.searchField.toLowerCase ());
+      });
       this.setState (prevState => {
         return {
           ...prevState,
@@ -93,9 +93,11 @@ class Characters extends Component {
 
   onIputChange = e => {
     let id = e.target.id;
+    let name = e.target.name;
     let resultsCopy = [...this.state.results];
     let index = resultsCopy.findIndex (item => item.id === Number (id));
-    resultsCopy[index].origin = e.target.value;
+    resultsCopy[index][name] = e.target.value;
+    //console.log(index,name)
     this.setState (prevState => {
       return {
         ...prevState,
@@ -104,13 +106,44 @@ class Characters extends Component {
       };
     });
   };
-  addCharacter = () => {};
+
+  handelUpdate =(e) => {
+    let id = e.target.id
+    let resultsCopy = [...this.state.results];
+    let data = resultsCopy.filter (item => item.id === Number (id));
+    CharactersService.editCharacter (id, data[0])
+      .then (this.onUpdateSuccess)
+      .then (this.onUpdateError);
+  };
+
+
+  onUpdateSuccess = resp=>{
+    this.setState({toggle:false})
+
+    console.log(resp)
+  }
+
+
+  handelModify =e =>{
+    let id = e.target.id
+    this.props.history.push(`/${id}`)
+    console.log(id)
+    this.setState({toggle:id})
+  }
+  addCharacter = () => {
+    this.props.history.push(`/characters/add`)
+  };
 
   render () {
     return (
       <div>
         <h1>LoopUp Character</h1>
-        <button onClick={this.addCharacter} className="pa3 ba b--green bg-lightest-blue">Add your own Rick!</button>
+        <button
+          onClick={this.addCharacter}
+          className=" pa2 ba b--green bg-lightest-blue"
+        >
+          Add your own Rick!
+        </button>
         <SearchBox searchField={this.onSearchChange} />
         {this.state.resultsComp}
       </div>

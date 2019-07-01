@@ -140,9 +140,9 @@ namespace pickleRickApp.Controllers
                         character.Type = item.type;
                         character.Gender = item.gender;
                         character.Origin = item.origin.name;
-                        character.Episode = item.episode[0];
-                        character.Url = item.url;
-                        character.CreatedBy = "John";
+                        //character.Episode = item.episode[0];
+                        //character.Url = item.url;
+                        //character.CreatedBy = "John";
                         service.Add(character);
                     }
                 }

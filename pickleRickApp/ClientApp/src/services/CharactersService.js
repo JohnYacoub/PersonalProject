@@ -43,7 +43,7 @@ const deleteCharacter = id =>{
 const editCharacter = (id,payload)=>{
     const config ={
         method:"PUT",
-        url:`${url}/${id}`,
+        url:`${url}${id}`,
         data:payload,
         withCredintails:true,
         crossDomain:true

@@ -8,6 +8,14 @@ const Card = props => {
   // const handleInputChange = (e) => {
   //   props.change (e);
   // };
+
+  const handelUpdate = () => {
+    props.handelUpdate(props.Characters.id)
+  }
+
+  const handelModify =()=>{
+    props.handelModify(props.Characters.id)
+  }
   return (
     <div className="bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5">
       <div>
@@ -31,6 +39,9 @@ const Card = props => {
           <span>STATUS</span><p>{props.Characters.status}</p>
         </div>
         <div>
+          <span>TYPE</span><p>{props.Characters.type}</p>
+        </div>
+        <div>
           <span>SPECIES</span><p>{props.Characters.species}</p>
         </div>
         <div>
@@ -39,7 +50,7 @@ const Card = props => {
         <div>
           <span>ORIGIN</span>
           <p>
-            {props.toggle
+            {props.match.params.id
               ? <input
                   id={props.Characters.id}
                   onChange={props.onIputChange}
@@ -55,13 +66,13 @@ const Card = props => {
         {props.toggle
           ? <button
               className="f6 link dim br1 ph3 pv2 mb2 dib white bg-gold"
-              //onClick={updateForm}
+              onClick={handelUpdate}
             >
               Change
             </button>
           : <button
               className="f6 link dim br1 ph3 pv2 mb2 dib white bg-gold"
-              //onClick={handelChange}
+              onClick={handelModify}
             >
               Modify
             </button>}

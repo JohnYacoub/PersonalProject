@@ -15,8 +15,8 @@ namespace pickleRickApp.Models.Requests
         public string Origin { get; set; }
         public string Location { get; set; }
         public string Image { get; set; }
-        public string Episode { get; set; }
-        public string Url { get; set; }
-        public string CreatedBy { get; set; }
+        //public string Episode { get; set; }
+        //public string Url { get; set; }
+        //public string CreatedBy { get; set; }
     }
 }

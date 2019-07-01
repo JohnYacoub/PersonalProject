@@ -43,8 +43,8 @@ namespace pickleRickApp.Services
                         model.Origin = reader.GetString(startingIndex++);
                         model.Location = reader.GetString(startingIndex++);
                         model.Image = reader.GetString(startingIndex++);
-                        model.Episode = reader.GetString(startingIndex++);
-                        model.Url = reader.GetString(startingIndex++);
+                        //model.Episode = reader.GetString(startingIndex++);
+                        //model.Url = reader.GetString(startingIndex++);
                         if(characters == null)
                         {
                             characters = new List<Character>();
@@ -118,9 +118,9 @@ namespace pickleRickApp.Services
                 cmd.Parameters.AddWithValue("@Origin", model.Origin);
                 cmd.Parameters.AddWithValue("@Location", model.Location);
                 cmd.Parameters.AddWithValue("@Image", model.Image);
-                cmd.Parameters.AddWithValue("@Episode", model.Episode);
-                cmd.Parameters.AddWithValue("@Url", model.Url);
-                cmd.Parameters.AddWithValue("@CreatedBy", model.CreatedBy);
+                //cmd.Parameters.AddWithValue("@Episode", model.Episode);
+                //cmd.Parameters.AddWithValue("@Url", model.Url);
+                //cmd.Parameters.AddWithValue("@CreatedBy", model.CreatedBy);
 
                 SqlParameter idParam = cmd.Parameters.Add("@Id", SqlDbType.Int);
                 idParam.Direction = ParameterDirection.Output;
@@ -152,9 +152,9 @@ namespace pickleRickApp.Services
                 cmd.Parameters.AddWithValue("@Origin", model.Origin);
                 cmd.Parameters.AddWithValue("@Location", model.Location);
                 cmd.Parameters.AddWithValue("@Image", model.Image);
-                cmd.Parameters.AddWithValue("@Episode", model.Episode);
-                cmd.Parameters.AddWithValue("@Url", model.Url);
-                cmd.Parameters.AddWithValue("@CreatedBy", model.CreatedBy);
+                //cmd.Parameters.AddWithValue("@Episode", model.Episode);
+                //cmd.Parameters.AddWithValue("@Url", model.Url);
+               // cmd.Parameters.AddWithValue("@CreatedBy", model.CreatedBy);
 
                 cmd.ExecuteNonQuery();
             }
