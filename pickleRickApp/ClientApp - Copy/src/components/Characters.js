@@ -3,6 +3,8 @@ import * as CharactersService from '../../src/services/CharactersService';
 import Card from './Card';
 import SearchBox from './SearchBox';
 import swal from 'sweetalert';
+import { connect } from "react-redux";
+import {getCharachters,searchCharacter} from '../components/state/charachter/actions'
 
 class Characters extends Component {
   state = {
@@ -13,20 +15,9 @@ class Characters extends Component {
   };
 
   componentDidMount () {
-    CharactersService.getAllCharacters ()
-      .then (this.onGetSuccess)
-      .catch (this.onGetError);
+    this.props.getCharachters()
   }
 
-  onGetSuccess = resp => {
-    this.setState (() => {
-      return {
-        info: resp.info,
-        results: resp,
-        resultsComp: resp.map (this.mapList),
-      };
-    });
-  };
 
   mapList = item => {
     return (
@@ -84,21 +75,21 @@ class Characters extends Component {
     });
   };
 
-  onSearchChange = e => {
-    this.setState ({searchField: e.target.value}, () => {
-      const filterChar = this.state.results.filter (char => {
-        return char.name
-          .toLowerCase ()
-          .includes (this.state.searchField.toLowerCase ());
-      });
-      this.setState (prevState => {
-        return {
-          ...prevState,
-          resultsComp: filterChar.map (this.mapList),
-        };
-      });
-    });
-  };
+  // onSearchChange = e => {
+  //   this.setState ({searchField: e.target.value}, () => {
+  //     const filterChar = this.state.results.filter (char => {
+  //       return char.name
+  //         .toLowerCase ()
+  //         .includes (this.state.searchField.toLowerCase ());
+  //     });
+  //     this.setState (prevState => {
+  //       return {
+  //         ...prevState,
+  //         resultsComp: filterChar.map (this.mapList),
+  //       };
+  //     });
+  //   });
+  // };
 
   onIputChange = e => {
     let id = e.target.id;
@@ -167,11 +158,21 @@ class Characters extends Component {
         </button>
         </div>
           <h1>LoopUp Character</h1>
-        <SearchBox searchField={this.onSearchChange} />
-        {this.state.resultsComp}
+        <SearchBox searchField={this.props.searchCharacter} />
+        {this.props.character.resultsComp.map(this.mapList)}
       </div>
     );
   }
 }
 
-export default Characters;
+const mapStateToProps = state=>{
+  return {
+    character:state.character
+  }
+}
+
+const mapDispatchToProps = {
+  getCharachters,searchCharacter
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Characters);
