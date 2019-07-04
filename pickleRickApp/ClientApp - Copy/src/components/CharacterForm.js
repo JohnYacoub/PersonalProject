@@ -1,6 +1,7 @@
 import React from 'react';
 import {FormGroup, Label, Input} from 'reactstrap';
-import * as CharactersService from '../../src/services/CharactersService';
+import {connect} from 'react-redux';
+import {addCharacter} from '../components/state/charachter/actions';
 
 class CharacterForm extends React.Component {
   state = {
@@ -11,7 +12,7 @@ class CharacterForm extends React.Component {
     gender: '',
     origin: '',
     location: '',
-    type:''
+    type: '',
   };
 
   updateInput = e => {
@@ -19,22 +20,18 @@ class CharacterForm extends React.Component {
     let key = e.target.value;
     this.setState ({[name]: key});
   };
-  handleSubmit = () => {
-    let data = this.state;
-    console.log (data);
-    CharactersService.addCharacter (data)
-      .then (this.onSubmitSuccess)
-      .catch (this.onSubmitError);
+
+  addCharacter = () => {
+    this.props.addCharacter (this.state);
   };
 
-  onSubmitSuccess =()=>{
-    this.props.history.push(`/characters`)
-  }
+  onSubmitSuccess = () => {
+    this.props.history.push (`/characters`);
+  };
 
   render () {
     const {name, status, species, gender, origin, location, type} = this.state;
     return (
-        
       <div className="bg-light-green dib br3 pt3 pb3 pr4 pl3 ma2 bw2 shadow-5 fl w-50 ">
         <div>
           <FormGroup>
@@ -113,15 +110,21 @@ class CharacterForm extends React.Component {
           </FormGroup>
           <button
             className="f6 link dim br1 ph3 pv2 mb2 dib white bg-dark-red"
-            onClick={this.handleSubmit}
+            onClick={this.addCharacter}
           >
             Add
           </button>
         </div>
       </div>
-
     );
   }
 }
-
-export default CharacterForm;
+const mapStateToProps = state => {
+  return {
+    character: state.character,
+  };
+};
+const mapDispatchToProps = {
+  addCharacter,
+};
+export default connect (mapStateToProps, mapDispatchToProps) (CharacterForm);

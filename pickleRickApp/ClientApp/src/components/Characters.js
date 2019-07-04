@@ -9,7 +9,7 @@ class Characters extends Component {
     results: '',
     resultsComp: '',
     searchField: '',
-    toggle: 0,
+    toggle: false,
   };
 
   componentDidMount () {
@@ -38,10 +38,19 @@ class Characters extends Component {
         onIputChange={this.onIputChange}
         handelUpdate={this.handelUpdate}
         handelModify={this.handelModify}
-        match={this.props.match}
+        handleCancel={this.handleCancel}
       />
     );
   };
+
+  handleCancel =()=>{
+    this.setState({toggle:false},()=>{
+      CharactersService.getAllCharacters ()
+      .then (this.onGetSuccess)
+      .catch (this.onGetError);
+    })
+
+  }
 
   deleteChar = id => {
     swal ({
@@ -107,28 +116,40 @@ class Characters extends Component {
     });
   };
 
-  handelUpdate =(e) => {
-    let id = e.target.id
+  handelUpdate =(id) => {
     let resultsCopy = [...this.state.results];
     let data = resultsCopy.filter (item => item.id === Number (id));
     CharactersService.editCharacter (id, data[0])
       .then (this.onUpdateSuccess)
-      .then (this.onUpdateError);
+      .catch (this.onUpdateError);
   };
 
 
   onUpdateSuccess = resp=>{
-    this.setState({toggle:false})
+    this.setState({toggle:false},()=>{
+      CharactersService.getAllCharacters ()
+      .then (this.onGetSuccess)
+      .catch (this.onGetError);
+    })
 
     console.log(resp)
   }
+  onUpdateError = () =>{
+    swal("Oh no!", "please check your inputs", "error");
+  }
 
-
-  handelModify =e =>{
-    let id = e.target.id
-    this.props.history.push(`/${id}`)
-    console.log(id)
-    this.setState({toggle:id})
+  handelModify =id =>{
+    this.setState({toggle:true},()=>{
+      let resultsCopy = [...this.state.results];
+      let data = resultsCopy.filter (item => item.id === Number (id));
+      this.setState (prevState => {
+        return {
+          ...prevState,
+          results: data,
+          resultsComp: data.map (this.mapList),
+        };
+      });
+    })
   }
   addCharacter = () => {
     this.props.history.push(`/characters/add`)
@@ -137,13 +158,15 @@ class Characters extends Component {
   render () {
     return (
       <div>
-        <h1>LoopUp Character</h1>
+        <div className ='pa2 fr'>
         <button
           onClick={this.addCharacter}
-          className=" pa2 ba b--green bg-lightest-blue"
-        >
+          className=" pa3 ba b--green bg-lightest-blue"
+          >
           Add your own Rick!
         </button>
+        </div>
+          <h1>LoopUp Character</h1>
         <SearchBox searchField={this.onSearchChange} />
         {this.state.resultsComp}
       </div>
