@@ -35,13 +35,13 @@ namespace pickleRickApp.Services
 
             using (FileStream stream = new FileStream(filePath, FileMode.Create))
             {
-                credentials = new BasicAWSCredentials("AKIAIONXFRLAFBYKNUEQ", "WYxiJFDA6VRQ7Ks8O67VjNGYrvpccHtiuQXdpdWF");
+                credentials = new BasicAWSCredentials("XXXXXXXXXX", "XXXXXXXXF");
                 s3Client = new AmazonS3Client(credentials, RegionEndpoint.USWest1);
                 file.CopyTo(stream);
                 fileTransferUtility = new TransferUtility(s3Client);
                 await fileTransferUtility.UploadAsync(stream, bucketName, keyName);
             }
-            //string url = "https://aws-john-b1.s3-us-west-1.amazonaws.com/" + keyName;
+            //string url = "https://XXXXXX-west-1.amazonaws.com/" + keyName;
             //return url;
 
            // This below section inserts file information to sql database.
