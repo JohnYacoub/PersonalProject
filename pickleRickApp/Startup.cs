@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using pickleRickApp.Models.AppSettings;
 using pickleRickApp.StartUp;
 
 namespace pickleRickApp
@@ -22,13 +23,16 @@ namespace pickleRickApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureAppSettings(services);
+
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllCors", builder =>
                 {
                     builder
 
-                    //.WithOrigins()
+                    .WithOrigins("http://localhost:50000")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
@@ -53,6 +57,13 @@ namespace pickleRickApp
                 configuration.RootPath = "ClientApp/build";
             });
         }
+
+        private void ConfigureAppSettings(IServiceCollection services)
+        {
+            services.AddOptions();
+            services.Configure<AWSCredential>(Configuration.GetSection("AWSCredential"));
+        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -4,7 +4,7 @@ const state = {
         results: [],
         resultsComp: [],
         searchField: '',
-        toggle: false,
+        selectedProfile: {},
     }
 }
 
