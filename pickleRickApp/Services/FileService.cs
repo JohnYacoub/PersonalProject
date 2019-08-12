@@ -29,7 +29,7 @@ namespace pickleRickApp.Services
         {
             TransferUtility fileTransferUtility = null;
             BasicAWSCredentials credentials = null;
-            string bucketName = "aws-john-b1";
+            string bucketName = "XXXXXX";
             string filePath = Path.GetTempFileName();
             string keyName = bucketName + Guid.NewGuid() + "_" + file.FileName;
 
@@ -48,7 +48,7 @@ namespace pickleRickApp.Services
            FileAddRequest model = new FileAddRequest()
            {
                Name = file.FileName,
-               Url = "https://aws-john-b1.s3-us-west-1.amazonaws.com/" + keyName,
+               Url = "https://aws-XXXX-XX.sXX3-XX-XX-1.amazonaws.com/" + keyName,
                FileType = 1,
            };
 
