@@ -20,7 +20,7 @@
     "redux-thunk": "^2.3.0",
     "rimraf": "^2.6.2",
     "sweetalert": "^2.1.2",
-    "swiper": "^4.5.0",
+    "swiper": "^6.5.1",
     "tachyons": "4.10.0"
   },
   "devDependencies": {
